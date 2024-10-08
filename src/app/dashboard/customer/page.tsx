@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-export default async function Dashboard() {
+export default async function Customer() {
 
     const session = await getServerSession(authOptions);
     if(!session || !session.user) {
@@ -12,7 +12,11 @@ export default async function Dashboard() {
 
     return (
         <Container>
-            <h1>Dashboard</h1>
+            <main>
+                <div>
+                    <h1>Página Customer</h1>
+                </div>
+            </main>
         </Container>
     );
 }
