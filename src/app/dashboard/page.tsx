@@ -24,10 +24,12 @@ export default async function Dashboard() {
 
                 <table className="min-w-full my-2">
                     <thead>
-                        <th className="font-medium text-left pl-1">CLIENTE</th>
-                        <th className="font-medium text-left hidden sm:block">DATA CADASTRO</th>
-                        <th className="font-medium text-left">STATUS</th>
-                        <th className="font-medium text-left">#</th>
+                        <tr>
+                            <th className="font-medium text-left pl-1">CLIENTE</th>
+                            <th className="font-medium text-left hidden sm:block">DATA CADASTRO</th>
+                            <th className="font-medium text-left">STATUS</th>
+                            <th className="font-medium text-left">#</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <TicketItem />
