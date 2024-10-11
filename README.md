@@ -1,6 +1,13 @@
 # Confira abaixo o figma desta aplicação
+
 [Clique aqui para abrir o design no figma](https://www.figma.com/design/BtgKsbZPnxdN9sCcSKfSIv/Dev-Controle?node-id=0-1&node-type=canvas)
 
+- axios
+- react-hook-form + zod
+- prismaORM
+- mongoDB atlas
+- NextAuth
+- tailwind
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

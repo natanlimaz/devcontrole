@@ -36,7 +36,8 @@ export function NewCustomerForm({ userId }: { userId: string }) {
             userId: userId
         });
 
-        router.replace("/dashboard/customer");
+        router.replace("/dashboard/customer"); // essa função dá um replace na url para a rota que a gente mandou
+        router.refresh(); // primeiro ele dá um refresh e depois um replace, para garantir que serão puxados os dados ao bater na api pois pode acontecer de o next guardar o cache da última requisição
     }
 
     return (
