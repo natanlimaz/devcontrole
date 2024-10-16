@@ -4,6 +4,8 @@ import { TicketProps } from "@/utils/ticket.type";
 import { FiTrash2, FiFile, FiCheckSquare } from "react-icons/fi";
 import api from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { ModalContext } from "@/providers/modal";
 
 type TicketItemPops = {
     ticket: TicketProps;
@@ -11,6 +13,8 @@ type TicketItemPops = {
 }
 
 export function TicketItem( {  ticket, customer }: TicketItemPops ) {
+
+    const { handleModalVisible, setDetailTicket } = useContext(ModalContext);
 
     const router = useRouter();
 
@@ -42,6 +46,14 @@ export function TicketItem( {  ticket, customer }: TicketItemPops ) {
         }
     }
 
+    function handleOpenModal() {
+        setDetailTicket({
+            ticket: ticket,
+            customer: customer
+        });
+        handleModalVisible();
+    }
+
     return (
         <>
             <tr className="border-b-2 border-b-slate-200 h-16 last:border-b-0 bg-slate-100 hover:bg-gray-200 duration-300">
@@ -61,7 +73,7 @@ export function TicketItem( {  ticket, customer }: TicketItemPops ) {
                     <button className="mr-3" onClick={handleDeleteTicketItem}>
                         <FiTrash2 size={24} color="#ef4444"/>
                     </button>
-                    <button>
+                    <button onClick={handleOpenModal}>
                         <FiFile size={24} color="#3b82f6"/>
                     </button>
                 </td>
