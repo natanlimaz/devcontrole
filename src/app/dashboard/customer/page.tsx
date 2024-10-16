@@ -39,7 +39,7 @@ export default async function Customer() {
                 </section>
 
                 {custommers.length === 0 && (
-                    <h1 className="text-gray-600">Você ainda não possui nenhum cliente</h1>
+                    <h1 className="px-2 md:px-0 text-gray-600">Você ainda não possui nenhum cliente</h1>
                 )}
             </main>
         </Container>

@@ -47,21 +47,26 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ error: "Failed to delete customer" }, { status: 400 } );
     }
 
-    // IMPLEMENTAR O DELETE MANY PARA QUE AO DELETAR CLIENTE, SE ELE TIVER TICKETS, EXCLUI TODOS OS TICKETS;
-    const findTickets = await prisma.ticket.findFirst({
+    const ticketsByUser = await prisma.ticket.findMany({
         where: {
-            customerId: userId
+            userId: userId 
         }
     });
-    if(findTickets) {
-        return NextResponse.json({ error: "Failed to delete customer" }, { status: 400 } );
+
+    if(ticketsByUser) {
+        await prisma.ticket.deleteMany({
+            where: {
+                customerId: userId
+            }
+        });
     }
+
     try {
         await prisma.customer.delete({
             where: {
                 id: userId as string
             }
-        })
+        });
 
         return NextResponse.json({ message: "Cliente deletado com sucesso!"})
     }

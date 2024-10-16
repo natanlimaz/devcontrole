@@ -15,7 +15,11 @@ export default async function Dashboard() {
 
     const tickets = await prisma.ticket.findMany({
         where: {
-            userId: session.user.id
+            userId: session.user.id,
+            status: "ABERTO"
+        },
+        include: {
+            customer: true
         }
     });
 
@@ -30,7 +34,7 @@ export default async function Dashboard() {
                 </div>
 
                 {tickets.length === 0 && (
-                    <h1 className="text-gray-600">Você ainda não possui nenhum chamado</h1>
+                    <h1 className="px-2 md:px-0 text-gray-600">Nenhum chamado aberto foi encontrado</h1>
                 )}
 
                 {tickets.length > 0 && (
@@ -45,7 +49,7 @@ export default async function Dashboard() {
                         </thead>
                         <tbody>
                             {tickets.map( ticket => (
-                                <TicketItem key={ticket.id} data={ticket}/>
+                                <TicketItem key={ticket.id} ticket={ticket} customer={ticket.customer}/>
                             ))}
                         </tbody>
                     </table>
