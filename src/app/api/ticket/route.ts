@@ -3,6 +3,31 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
+export async function POST(request: Request) {
+    const { customerId, name, description } = await request.json();
+
+    if(!customerId || !name || !description) {
+        NextResponse.json({ error: "Failed create new ticket" }, { status: 400 });
+    }
+
+    try {
+        await prisma.ticket.create({
+            data: {
+                customerId: customerId,
+                name: name,
+                status: "ABERTO",
+                description: description
+            }
+        });
+
+        return NextResponse.json({ message: "Chamado cadastrado com sucesso!"});
+    }
+    catch(error) {
+        NextResponse.json({ error: "Failed create new ticket" }, { status: 400 });
+    }
+
+}
+
 export async function PATCH(request: Request) {
     const session = await getServerSession(authOptions);
     if(!session || !session.user) {
@@ -27,7 +52,7 @@ export async function PATCH(request: Request) {
                 id: id as string,
             },
             data: {
-                status: "FECHADO"
+                status: findTicket.status === "ABERTO" ? "FECHADO" : "ABERTO"  
             }
         });
 
